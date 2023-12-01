@@ -49,4 +49,4 @@ class MainActivity : AppCompatActivity() {
         tv.text = "현재 시간 : $timeString"
     }
 
-}/Users/seungwon1/AndroidStudioProjects/Hello/app
+}
