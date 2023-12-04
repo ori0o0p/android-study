@@ -22,22 +22,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        handler = Handler(Looper.getMainLooper())
+        runnable = Runnable {}
+
         tv = findViewById(R.id.textView)
         buttonEvent()
+    }
+
+
+    private fun removeCallback() {
+        if (runnable != null) {
+            handler.removeCallbacks(runnable)
+        }
     }
 
     private fun buttonEvent() {
         val button = findViewById<Button>(R.id.buttonToEn)
         val button2 = findViewById<Button>(R.id.buttonToKor)
         button.setOnClickListener {
-            handler.removeCallbacks(runnable) // 시간 갱신 작업 중단
             buttonClickMessage("영어 선택")
+            removeCallback()
             tv.text = "Android"
         }
 
         button2.setOnClickListener {
-            handler.removeCallbacks(runnable) // 시간 갱신 작업 중단
             buttonClickMessage("한국어 선택")
+            removeCallback()
             tv.text = "안드로이드"
         }
 
@@ -51,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val button4 = findViewById<Button>(R.id.buttonToGetDate)
 
         button4.setOnClickListener { // 날짜
-            handler.removeCallbacks(runnable) // 시간 갱신 작업 중단
+            removeCallback()
             buttonClickMessage("오늘 날짜 선택")
             getDate()
         }
@@ -81,5 +91,6 @@ class MainActivity : AppCompatActivity() {
         val timeString = timeFormat.format(currentDate)
         tv.text = "오늘 날짜 : $timeString"
     }
+
 
 }
