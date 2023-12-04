@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -27,23 +28,26 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.buttonToEn)
         val button2 = findViewById<Button>(R.id.buttonToKor)
         button.setOnClickListener {
-//            Toast.makeText(this@MainActivity, "버튼 클릭 이벤트", Toast.LENGTH_SHORT).show()
+            buttonClickMessage("영어 선택")
             tv.text = "Android"
         }
 
         button2.setOnClickListener {
+            buttonClickMessage("한국어 선택")
             tv.text = "안드로이드"
         }
 
         val button3 = findViewById<Button>(R.id.buttonToGetTime)
 
-        button3.setOnClickListener {
+        button3.setOnClickListener { // 시간
+            buttonClickMessage("현재 시간 선택")
             getTime()
         }
 
         val button4 = findViewById<Button>(R.id.buttonToGetDate)
 
-        button4.setOnClickListener {
+        button4.setOnClickListener { // 날짜
+            buttonClickMessage("오늘 날짜 선택")
             getDate()
         }
 
@@ -58,10 +62,14 @@ class MainActivity : AppCompatActivity() {
                 val timeString = timeFormat.format(currentTime)
                 tv.text = "현재 시간 : $timeString"
                 handler.postDelayed(this, 1000)
+                // handler.removeCallbacks(this)
             }
         })
     }
 
+    private fun buttonClickMessage(message : String) {
+        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+    }
 
     @SuppressLint("SetTextI18n")
     private fun getDate() {
@@ -70,6 +78,5 @@ class MainActivity : AppCompatActivity() {
         val timeString = timeFormat.format(currentDate)
         tv.text = "오늘 날짜 : $timeString"
     }
-
 
 }
